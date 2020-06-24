@@ -1,5 +1,6 @@
 const { Client, MessageEmbed, MessageCollector } = require("discord.js")
 const { config } = require("dotenv")
+const { highLowCommands } = require('./js/commands/highLow.js');
 
 const client = new Client({
     disableEveryone: true
@@ -78,9 +79,12 @@ client.on('message', message => {
         })
         message.channel.send("bot is exiting collecting now...")
     }
-    if(message.content == "!high" || message.content == "!low"){
-        message.channel.send(highLowCommands())
+    /* johns additions */
+    var results = highLowCommands(message.content)
+    if(results){
+        message.channel.send(results)
     }
+    /* johns additions end here */
     
 });
 client.login(process.env.TOKEN)
