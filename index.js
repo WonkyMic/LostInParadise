@@ -1,3 +1,5 @@
+import {highLowCommands} from 'highLow'
+
 const { Client, MessageEmbed, MessageCollector } = require("discord.js")
 const { config } = require("dotenv")
 
@@ -78,7 +80,9 @@ client.on('message', message => {
         })
         message.channel.send("bot is exiting collecting now...")
     }
+    if(message.content == "!high" || message.content == "!low"){
+        message.channel.send(highLowCommands())
+    }
     
 });
-
 client.login(process.env.TOKEN)
