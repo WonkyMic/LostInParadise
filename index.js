@@ -1,5 +1,3 @@
-import {highLowCommands} from 'highLow'
-
 const { Client, MessageEmbed, MessageCollector } = require("discord.js")
 const { config } = require("dotenv")
 
