@@ -9,6 +9,7 @@
   "author": "WonkyMic",
   "license": "ISC",
   "dependencies": {
+    "couchbase": "^3.0.4",
     "discord.js": "^12.2.0",
     "dotenv": "^8.2.0"
   },

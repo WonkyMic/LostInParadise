@@ -17,4 +17,4 @@ npm install
 
 ## Developer Documentation
 
-This application uses [Discord.js](https://discord.js.org/#/) to interface with the [Discord API](https://discord.com/developers/docs/intro). Currently we are looking to integrate with [NeDB](https://github.com/louischatriot/nedb) to keep state.
+This application uses [Discord.js](https://discord.js.org/#/) to interface with the [Discord API](https://discord.com/developers/docs/intro). Currently we are looking to integrate with [Couchbase via Couchnode](https://github.com/couchbase/couchnode) to keep state.
