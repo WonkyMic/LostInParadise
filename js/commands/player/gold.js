@@ -1,10 +1,11 @@
 const { MessageEmbed } = require("discord.js")
 const GoldMiner = require("../../managers/goldminer")
 module.exports = {
-    name:"gold",
+    name: "gold",
     category: "player",
     description: "Returns Player Gold Currency",
     run: async (client, message, args) => {
+
         var GM = new GoldMiner(message.author.id)
         var goldDoc = await GM.getGoldDoc()
         if (args.length > 1) {
@@ -17,14 +18,11 @@ module.exports = {
                 goldDoc = GM.upsertGoldDoc(goldDoc)
             }
         }
-        
         const embed = new MessageEmbed()
             .setColor("#F0DB4F")
             .setDescription(`Gold: ${goldDoc.value}`)
             .setFooter(message.author.username)
 
         message.channel.send(embed)
-
-        
     }
 }
