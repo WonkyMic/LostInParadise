@@ -12,5 +12,14 @@
     "couchbase": "^3.0.4",
     "discord.js": "^12.2.0",
     "dotenv": "^8.2.0"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WonkyMic/LostInParadise.git"
+  },
+  "bugs": {
+    "url": "https://github.com/WonkyMic/LostInParadise/issues"
+  },
+  "homepage": "https://github.com/WonkyMic/LostInParadise#readme"
 }

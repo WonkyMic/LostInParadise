@@ -1,5 +1,6 @@
 const { Client, MessageEmbed, MessageCollector} = require("discord.js")
 const { config } = require("dotenv")
+const { highLowCommands } = require('./js/commands/highLow.js');
 
 const client = new Client({
     disableEveryone: true
@@ -29,6 +30,13 @@ client.on('message', async message => {
     if (!message.guild) return
     if (!message.content.startsWith(prefix)) return
 
+    /* johns additions */
+    var results = highLowCommands(message.content)
+    if(results){
+        message.channel.send(results)
+    }
+    /* johns additions end here */
+
     const args = message.content.slice(prefix.length).trim().split(/ +/g)
     const cmd = args.shift().toLowerCase()
 
@@ -43,7 +51,6 @@ client.on('message', async message => {
     }
 
     if (cmd === "gold") {
-        console.log("message.author", message.author)
         const embed = new MessageEmbed()
             .setColor("#F0DB4F")
             .setDescription(`Gold: ${Math.floor(Math.random(0, 11) * 10)}`)
@@ -52,5 +59,4 @@ client.on('message', async message => {
         message.channel.send(embed)
     }
 });
-
 client.login(process.env.TOKEN)
