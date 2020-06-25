@@ -1,1 +1,1 @@
-export const GOLD = "GOLD_"
+module.exports = GOLD = "GOLD_"
