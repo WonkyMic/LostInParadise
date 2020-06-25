@@ -3,26 +3,20 @@ const winningStringFormat = "Congratulations, you did it! You win %s tokens!"
 const somethingWentWrong = "Your commands didn't make sense, try again! ex : `!high 40`"
 
 module.exports = {
-    name:"highLow",
-    category: "game",
-    description: "todo",
-    run: async (client, message, args) => {
-
-        console.log("--- Running highLow ---")
-        console.log("--- args : " + args + " ---")
-
-        let betValue
+    highLowCommands: function(cmd, args) {
+        let betVal
         let winnings = 0
 
+        console.log(args)
         //if args exist get the next one as the bet value
         if(Array.isArray(args) && args.length > 0 ){
-            betValue = args.shift().toLowerCase()
+            betVal = args.shift().toLowerCase()
         }
         else {
             return somethingWentWrong
         }
-        //if the betValue is not a number, give error and no winnings
-        if(isNaN(betValue)){
+        //if the value bet is not a number, give error and no winnings
+        if(isNaN(betVal)){
             return somethingWentWrong
         }
 
@@ -30,6 +24,7 @@ module.exports = {
         const roll = Math.trunc(Math.random()*100) + 1
         var returnString = "You rolled a " + roll + ".\n"
 
+        
         if(cmd == "high"){
             //if they bet high and succeed, double the betVal as winnings
             if(roll > 70){
