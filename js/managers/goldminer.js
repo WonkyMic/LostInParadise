@@ -1,8 +1,12 @@
-import { getGameContent } from '../data/store'
+import { getGoldDoc, setGoldDoc } from '../data/store'
+import GoldDoc from '../data/docs'
+import { GOLD } from '../data/docs/DocTypes'
 
-export function getGold(id) {
-    const key = "gold_" + id
-    const result = await getGameContent().get(key)
-    return "asdr";
+export default class GoldMiner {
+    constructor(id) {
+        this.goldDoc = getGoldDoc(id)
+        if(typeof this.goldDoc === 'undefined') { this.goldDoc = new GoldDoc(id)}
+    }
 }
+
 
