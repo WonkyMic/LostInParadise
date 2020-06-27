@@ -1,16 +1,11 @@
-const getContent = require('../data/store')
-// const setGoldDoc = require('../data/store')
+const Store = require('../data/store')
 const GoldDoc = require('../data/docs/GoldDoc')
 const { GOLD } = require('../data/docs/DocTypes')
 
-module.exports = class GoldMiner {
-    constructor(id) {
-        this.id = id
-        this.content = getContent()
-    }
-
-    async getGoldDoc() { 
-        return this.content.get(GOLD + this.id)
+module.exports = {
+    async getGoldDoc(docId) {
+        const store = new Store(GOLD)
+        return store.collection.findOne({id: {docId}})
             .then((doc) => {
                 console.log("doc", doc)
                 return doc
@@ -19,10 +14,12 @@ module.exports = class GoldMiner {
                 console.log("---ERROR: when attempting to retrieve from DB", error)
                 return new GoldDoc(this.id)
             })
-    }
-
+            .finally(() => store.close())
+    },
     async upsertGoldDoc(doc) {
-        return this.content.upsert(GOLD + this.id, doc)
+        const store = new Store(GOLD)
+        const docId = doc.id
+        return store.collection.updateOne({id: {docId}}, {'$set': {doc}}) 
         .then((doc) => {
             console.log("doc", doc)
             return doc
@@ -31,7 +28,15 @@ module.exports = class GoldMiner {
             console.log("---ERROR: when attempting to write.add to DB", error)
             return new GoldDoc(this.id)
         })
+        .finally(() => store.close())
     }
+
+    /*
+        If we ever need to delte
+        collection.deleteOne({name: 'Togo'}, (err, item) => {
+            console.log(item)
+        })
+    */
 }
 
 

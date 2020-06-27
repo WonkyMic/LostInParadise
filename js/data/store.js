@@ -1,29 +1,25 @@
-const couchbase = require("couchbase")
+const mongo = require('mongodb').MongoClient
 const { Gold } = require('./docs/DocTypes')
 
-const cluster = new couchbase.Cluster('couchbase://127.0.0.1', {
-    username: "username",
-    password: "password"
-})
-
-const bucket = cluster.bucket("lost-in-paradise", function(err){
-    if(err) {
-        console.error('Couchbase Bucket error: ', err)
+module.exports = class Store {
+    constructor(collName) {
+        const url = '' // GCloud connection URL
+        this.client
+        mongo.connect(url, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true
+        }, (err, clit) => {
+            if (err) {
+                console.error(err)
+                return
+            }
+            this.client = clit
+            const db = client.db('wm-lostParadise')
+            return db.collection({collName})
+        })
     }
-})
-var gameContent = bucket.defaultCollection()
-
-module.exports = function getContent() { return gameContent}
-
-// module.exports = function getGoldDoc(id) { 
-//     return gameContent.get(GOLD + id).catch((error) => {
-//         console.log("---ERROR: when attempting to retrieve from DB", error)
-//         return
-//     })
-// }
-// module.exports = function setGoldDoc(goldDoc) { 
-//     return gameContent.upsert(GOLD + goldDoc.id, goldDoc).catch((error) => {
-//         console.log("---ERROR: when attempting to write to DB", error)
-//     })
-// }
-
+    
+    close(){
+        client.close()
+    }
+}
