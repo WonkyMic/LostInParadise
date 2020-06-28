@@ -1,21 +1,19 @@
 const { MessageEmbed } = require("discord.js")
-const GoldMiner = require("../../managers/goldminer")
+const {getGoldDoc, upsertGoldDoc} = require("../../managers/goldminer")
 module.exports = {
     name: "gold",
     category: "player",
     description: "Returns Player Gold Currency",
     run: async (client, message, args) => {
-
-        var GM = new GoldMiner(message.author.id)
-        var goldDoc = await GM.getGoldDoc()
+        var goldDoc = await getGoldDoc(message.author.id)
         if (args.length > 1) {
             if(args[0] == "add") {
-                goldDoc.value += args[1]
-                goldDoc = GM.upsertGoldDoc(goldDoc)
+                goldDoc.value = parseInt(goldDoc.value) + parseInt(args[1])
+                upsertGoldDoc(goldDoc)
             }
             if(args[0] == "sub") {
-                goldDoc.value -= args[1]
-                goldDoc = GM.upsertGoldDoc(goldDoc)
+                goldDoc.value = parseInt(goldDoc.value) - parseInt(args[1])
+                upsertGoldDoc(goldDoc)
             }
         }
         const embed = new MessageEmbed()
