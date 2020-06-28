@@ -1,1 +1,1 @@
-module.exports = GOLD = "GOLD_"
+module.exports = GOLD = "GOLD"

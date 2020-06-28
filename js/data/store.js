@@ -1,29 +1,34 @@
-const couchbase = require("couchbase")
+const cassandra = require('cassandra-driver')
 const { Gold } = require('./docs/DocTypes')
 
-const cluster = new couchbase.Cluster('couchbase://127.0.0.1', {
-    username: "username",
-    password: "password"
-})
-
-const bucket = cluster.bucket("lost-in-paradise", function(err){
-    if(err) {
-        console.error('Couchbase Bucket error: ', err)
+module.exports = {
+    getClient() {
+        return new cassandra.Client({
+            contactPoints: ['35.188.143.19'],
+            localDataCenter: 'us-central1',
+            keyspace: 'paradiseks'
+          });
     }
-})
-var gameContent = bucket.defaultCollection()
+}
 
-module.exports = function getContent() { return gameContent}
-
-// module.exports = function getGoldDoc(id) { 
-//     return gameContent.get(GOLD + id).catch((error) => {
-//         console.log("---ERROR: when attempting to retrieve from DB", error)
-//         return
-//     })
+// module.exports = class Store {
+//     constructor(collName) {
+//         const url = '' // GCloud connection URL
+//         mongo.connect(url, {
+//             useNewUrlParser: true,
+//             useUnifiedTopology: true
+//         }, (err, clit) => {
+//             if (err) {
+//                 console.error(err)
+//                 return
+//             }
+//             this.client = clit
+//             const db = client.db('wm-lostParadise')
+//             this.collection = db.collection({collName})
+//         })
+//     }
+    
+//     close(){
+//         client.close()
+//     }
 // }
-// module.exports = function setGoldDoc(goldDoc) { 
-//     return gameContent.upsert(GOLD + goldDoc.id, goldDoc).catch((error) => {
-//         console.log("---ERROR: when attempting to write to DB", error)
-//     })
-// }
-

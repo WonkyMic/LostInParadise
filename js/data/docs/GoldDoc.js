@@ -1,7 +1,6 @@
 module.exports = class GoldDoc {
-    constructor(id) {
+    constructor(id, value) {
         this.id = id
-        this.type = "gold"
-        this.value = "0"
+        this.value = value
     }
 }
