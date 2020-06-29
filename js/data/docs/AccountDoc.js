@@ -1,9 +1,13 @@
 module.exports = class AccountDoc {
     constructor(id) {
         this.id = id
-        this.activeClass = 'default'
-        this.buffs = []
-        this.items = []
+        this.attunement = 0
+        this.elements = '0'
+        this.buffs = '0'
+        this.items = '0'
+        this.weapon = 0
+        this.trinket = 0
+        this.armor = 0
         this.gems = 0
         this.hp = 20
         this.maxHp = 20
@@ -17,9 +21,13 @@ module.exports = class AccountDoc {
         this.charisma = 10
     }
     setDoc(doc) {
-        this.activeClass = doc.activeClass
+        this.attunement = doc.attunement
+        this.elements = doc.elements
         this.buffs = doc.buffs
         this.items = doc.items
+        this.weapon = doc.weapon
+        this.trinket = doc.trinket
+        this.armor = doc.armor
         this.gems = doc.gems
         this.hp = doc.hp
         this.maxHp = doc.maxHp
@@ -31,11 +39,16 @@ module.exports = class AccountDoc {
         this.intelligence = doc.intelligence
         this.wisdom = doc.wisdom
         this.charisma = doc.charisma
+        console.log("---Gems from setDoc: " + this.gems)
     }
     getUpdateQuery() {
-        const query = `UPDATE account SET activeClass=${this.activeClass}, `
-                        + `buffs=${this.buffs}, `
-                        + `items=${this.items}, `
+        return `UPDATE account SET attunement='${this.attunement}', `
+                        + `elements='${this.elements}', `
+                        + `buffs='${this.buffs}', `
+                        + `items='${this.items}', `
+                        + `weapon=${this.weapon}, `
+                        + `trinket=${this.trinket}, `
+                        + `armor=${this.armor}, `
                         + `gems=${this.gems}, `
                         + `hp=${this.hp}, `
                         + `maxHp=${this.maxHp}, `
@@ -46,7 +59,29 @@ module.exports = class AccountDoc {
                         + `constitution=${this.constitution}, `
                         + `intelligence=${this.intelligence}, `
                         + `wisdom=${this.wisdom}, `
-                        + `charisma=${this.charisma}`
+                        + `charisma=${this.charisma} `
+                        + `WHERE id=${this.id}`
+    }
+
+    getSelectQuery() {
+        return `SELECT attunement, `
+                        + `elements, `
+                        + `buffs, `
+                        + `items, `
+                        + `weapon, `
+                        + `trinket, `
+                        + `armor, `
+                        + `gems, `
+                        + `hp, `
+                        + `maxHp, `
+                        + `xp, `
+                        + `level, `
+                        + `strength, `
+                        + `dexterity, `
+                        + `constitution, `
+                        + `intelligence, `
+                        + `wisdom, `
+                        + `charisma `
                         + `WHERE id=${this.id}`
     }
 }

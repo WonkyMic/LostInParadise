@@ -4,24 +4,28 @@ const AccountDoc = require('../data/docs/AccountDoc')
 // Documentation used when interfacing with DB: https://github.com/datastax/nodejs-drivers
 module.exports = {
     async getAccountDoc(docId) {
-        const query = `SELECT * FROM account WHERE id=${docId}`
+        const query = `SELECT * FROM account WHERE id=${docId}` //getSelectQuery(docId)
         const store = getClient()
-        return store.execute(query)
+        var accountdoc = new AccountDoc(docId)
+        store.execute(query)
             .then((result) => {
                 const doc = result.rows[0]
-                console.log("value from db: ", doc)
-                return new AccountDoc(docId).setDoc(doc)
+                console.log("---SELECT Doc.id: " + doc.id)
+                console.log("---SELECT Doc: " , doc)
+                return accountdoc.setDoc(doc)
             })
             .catch((error) => {
                 console.log("---ERROR: when attempting to retrieve from DB", error)
-                return new AccountDoc(docId)
+                return accountdoc
             })
     },
     async upsertAccountDoc(doc) {
         const store = getClient()
-        return store.execute(doc.getUpdateQuery()) 
+        const query = doc.getUpdateQuery()
+        console.log("---QUERY :: ", query)
+        store.execute(query) 
         .then(() => {
-            console.log("updated doc", doc)
+            return doc
         })
         .catch((error) => {
             console.log("---ERROR: when attempting to write.add to DB", error)
@@ -29,5 +33,3 @@ module.exports = {
         })
     }
 }
-
-
