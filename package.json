@@ -16,7 +16,9 @@
     "dotenv": "^8.2.0",
     "mongodb": "^3.5.9"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "cz-conventional-changelog": "^3.2.0"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/WonkyMic/LostInParadise.git"
@@ -24,5 +26,10 @@
   "bugs": {
     "url": "https://github.com/WonkyMic/LostInParadise/issues"
   },
-  "homepage": "https://github.com/WonkyMic/LostInParadise#readme"
+  "homepage": "https://github.com/WonkyMic/LostInParadise#readme",
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
 }
