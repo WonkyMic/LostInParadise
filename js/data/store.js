@@ -1,13 +1,34 @@
-const couchbase = require("couchbase")
-import { GOLD } from './docs/DocTypes'
+const cassandra = require('cassandra-driver')
+const { Gold } = require('./docs/DocTypes')
 
-const cluster = new couchbase.Cluster("couchbase://localhost", {
-    username: "Administrator",
-    password: "password"
-})
+module.exports = {
+    getClient() {
+        return new cassandra.Client({
+            contactPoints: ['35.188.143.19'],
+            localDataCenter: 'us-central1',
+            keyspace: 'paradiseks'
+          });
+    }
+}
 
-const gameContent = cluster.bucket("lost-in-paradise")
-
-export function getGoldDoc(id) { return gameContent.get(GOLD + id) }
-export function setGoldDoc(goldDoc) { return gameContent.upsert(GOLD + goldDoc.id, goldDoc) }
-
+// module.exports = class Store {
+//     constructor(collName) {
+//         const url = '' // GCloud connection URL
+//         mongo.connect(url, {
+//             useNewUrlParser: true,
+//             useUnifiedTopology: true
+//         }, (err, clit) => {
+//             if (err) {
+//                 console.error(err)
+//                 return
+//             }
+//             this.client = clit
+//             const db = client.db('wm-lostParadise')
+//             this.collection = db.collection({collName})
+//         })
+//     }
+    
+//     close(){
+//         client.close()
+//     }
+// }

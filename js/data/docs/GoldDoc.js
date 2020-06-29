@@ -1,9 +1,6 @@
-export default class GoldDoc {
-    constructor(id) {
+module.exports = class GoldDoc {
+    constructor(id, value) {
         this.id = id
-        // hydrate from DB
-        
-        this.type = "gold"
-        this.value = "0"
+        this.value = value
     }
 }
