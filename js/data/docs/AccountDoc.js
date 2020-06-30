@@ -30,7 +30,7 @@ module.exports = class AccountDoc {
         this.armor = doc.armor
         this.gems = doc.gems
         this.hp = doc.hp
-        this.maxHp = doc.maxHp
+        this.maxHp = doc.maxhp
         this.xp = doc.xp
         this.level = doc.level
         this.strength = doc.strength
@@ -39,7 +39,6 @@ module.exports = class AccountDoc {
         this.intelligence = doc.intelligence
         this.wisdom = doc.wisdom
         this.charisma = doc.charisma
-        console.log("---Gems from setDoc: " + this.gems)
     }
     getUpdateQuery() {
         return `UPDATE account SET attunement='${this.attunement}', `
@@ -51,7 +50,7 @@ module.exports = class AccountDoc {
                         + `armor=${this.armor}, `
                         + `gems=${this.gems}, `
                         + `hp=${this.hp}, `
-                        + `maxHp=${this.maxHp}, `
+                        + `maxhp=${this.maxHp}, `
                         + `xp=${this.xp}, `
                         + `level=${this.level}, `
                         + `strength=${this.strength}, `

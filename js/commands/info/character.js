@@ -1,13 +1,12 @@
 const { MessageEmbed } = require("discord.js")
-const { getAccountDoc } = require("../../managers/accountManager")
 module.exports = {
     name:"cs",
     category: "info",
     description: "Returns Character information",
     run: async (client, message, args) => {
-        var doc = await getAccountDoc(message.author.id)
+        console.log("---Client.lostParadise.cache", client.lostParadise.cache)
+        var doc = await client.lostParadise.getAccountDoc(message.author.id)
         if(doc.id) {
-            // const classesList = doc.classes.map((c) => {[]})
             const embed = new MessageEmbed()
                 .setColor("#03AA2E")
                 .setTitle(`Character Sheet: ${message.author.username}`)
@@ -24,9 +23,7 @@ module.exports = {
                     { name: 'Char', value: doc.charisma, inline: true },
                 )
                 .setFooter("Additional Commands : !actions, !items, !attunement")
-
-            message.channel.send(embed)
-            
+            message.channel.send(embed) // this may cause issues on multiple DMs
         } else {
             message.channel.sent("I fucked up")
         }
