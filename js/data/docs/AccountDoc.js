@@ -1,14 +1,15 @@
 module.exports = class AccountDoc {
     constructor(id) {
         this.id = id
-        this.attunement = 'Basic'
+        this.type = "default"
+        this.attunement = "Basic"
         this.elements = [`🌑`]
         this.buffs = [`🆕`]
         this.items = [`🗡`]
         this.weapon = 0
         this.trinket = 0
         this.armor = 0
-        this.gems = 0
+        this.gems = 100
         this.hp = 20
         this.maxHp = 20
         this.xp = 0

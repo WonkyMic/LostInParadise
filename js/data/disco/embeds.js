@@ -1,4 +1,5 @@
 const { MessageEmbed } = require("discord.js")
+const {lp_physical, lp_magical } = require("./emotes/attunements")
 module.exports = {
     charactersheet(message, doc) {
         return new MessageEmbed()
@@ -39,6 +40,22 @@ module.exports = {
             fields: [{
                 name: "⚠️ Confirmation Requested ⚠️",
                 value: "If you have an existing character it will be destroyed. Are you sure?"
+              }
+            ]
+          }}
+    },
+    askCharacterType(){
+        return {embed: {
+            color: 3447003,
+            title: "Select Character Type",
+            description: "Character Type flavor text",
+            fields: [{
+                name: `${lp_physical} - Physical`,
+                value: "Physical Flavor Text"
+              },
+              {
+                name: `${lp_magical} - Magical`,
+                value: "Magic Flavor Text"
               }
             ]
           }}
