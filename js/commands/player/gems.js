@@ -13,8 +13,8 @@ module.exports = {
                     client.lostParadise.upsertAccountDoc(doc)
                             .catch((er) => console.log(`---ERROR: addGems args:${args}\nError:`, er))
                 }
-            message.channel.send(bank(message, doc))
             }
+            message.channel.send(bank(message, doc))
         } else {
             message.channel.send(hydratingcache())
         }
