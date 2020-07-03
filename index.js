@@ -9,12 +9,7 @@ const client = new Client({
 
 const PROD_CHANNEL = "bot-dev"
 const TEST_CHANNEL = "bot-test-channel"
-
-// const ACTIVE_CHANNEL = PROD_CHANNEL
-// client.gameENV = "PROD"
 const ACTIVE_CHANNEL = TEST_CHANNEL
-client.gameENV = "TEST"
-
 
 client.commands = new Collection()
 client.aliases = new Collection()
@@ -29,8 +24,9 @@ readdirSync("./js/handler/").forEach(handler => {
 
 client.on("ready", () => {
     console.log('I am now online, my name is ' + client.user.username)
+    client.mongopass = process.env.MONGO_CREDS
 
-    //todo fixme
+    //todo fixme - Bot Description not displaying
     client.user.setPresence({
         status: "online",
         game: {
@@ -42,7 +38,8 @@ client.on("ready", () => {
 
 // Create an event listener for messages
 client.on('message', async message => {
-    const prefix = ">"
+    const prefix = "!"
+    client.mongopass = process.env.MONGO_CREDS
     
     if (message.author.bot) return
     // if (!message.guild) return
@@ -61,9 +58,9 @@ client.on('message', async message => {
     if (!command) command = client.commands.get(client.aliases.get(cmd))
     if (command) {
         await command.run(client, message, args)
-                        .catch((error) => {
-                            console.log("---ERROR: when Executing Command", error)
-                        })
+        .catch((error) => {
+            console.log("---ERROR: when Executing Command", error)
+        })
     }
 });
 client.login(process.env.TOKEN)

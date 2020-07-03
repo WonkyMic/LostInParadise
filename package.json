@@ -10,8 +10,6 @@
   "license": "ISC",
   "dependencies": {
     "ascii-table": "0.0.9",
-    "cassandra-driver": "^4.5.2",
-    "couchbase": "^3.0.4",
     "discord.js": "^12.2.0",
     "dotenv": "^8.2.0",
     "mongodb": "^3.5.9"
