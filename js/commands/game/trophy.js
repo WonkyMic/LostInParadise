@@ -1,5 +1,5 @@
 const { MessageEmbed } = require("discord.js")
-const { getGoldDoc, upsertGoldDoc } = require("../../managers/goldminer")
+// const { getGoldDoc, upsertGoldDoc } = require("../../managers/goldminer")
 
 module.exports = {
     name: "trophy",
@@ -53,9 +53,13 @@ module.exports = {
         msgMember = message.guild.members.cache.get(message.member.id);
         console.log(msgMember.nickname)
         addTrophy(msgMember);
-        var goldDoc = await getGoldDoc(message.author.id)
-        goldDoc.value = parseInt(goldDoc.value) - parseInt(trophyCost)
-        upsertGoldDoc(goldDoc)
+        // var goldDoc = await getGoldDoc(message.author.id)
+        // goldDoc.value = parseInt(goldDoc.value) - parseInt(trophyCost)
+        // upsertGoldDoc(goldDoc)
+        var doc = await client.lostParadise.getAccountDoc(message.author.id)
+        doc.value = parseInt(doc.value) - parseInt(trophyCost)
+        client.lostParadise.upsertAccountDoc(doc)
+            .catch((er) => console.log(`---ERROR: trophy args:${args}\nError:`, er))
 
         //errorWarning()
     }
