@@ -12,12 +12,24 @@ module.exports = {
                     { name: 'HP', value: `${doc.hp}/${doc.maxHp}`, inline: false },
                     { name: 'Str', value: doc.strength, inline: true },
                     { name: 'Dex', value: doc.dexterity, inline: true },
-                    { name: 'Const', value: doc.constitution, inline: true },
+                    { name: 'Con', value: doc.constitution, inline: true },
                     { name: 'Int', value: doc.intelligence, inline: true },
                     { name: 'Wis', value: doc.wisdom, inline: true },
                     { name: 'Char', value: doc.charisma, inline: true },
                 )
                 .setFooter("Additional Commands : !actions, !items, !attunement")
+    },
+    equipped(message, doc) {        
+        return new MessageEmbed()
+                .setColor("#03AA2E")
+                .setTitle(`Equipped Items: ${message.author.username}`)
+                // .setDescription(`Level: ${doc.level}\nAttunement: ${doc.attunement}\nElements:${doc.elements}`)
+                .addFields(
+                    { name: `Weapon: ${doc.weapon.name}`, value: `Type: ${doc.weapon.type}`, inline: true },
+                    { name: 'Armor', value: `${doc.armor}`, inline: false },
+                    { name: 'Trinket', value: `${doc.trinket}`, inline: false },
+                )
+                .setFooter("Additional Commands : !actions, !items, !charactersheet")
     },
     hydratingcache() {
         return "...Hydrating Cache/No Character..."
@@ -30,34 +42,47 @@ module.exports = {
         .setFooter("Additional Commands: !gamble, !market, !insurance")
     },
     creationintro(avatarURL){
-        return {embed: {
-            color: 3447003,
-            author: {
-              icon_url: avatarURL
+        return {
+          embed: {
+          color: 3447003,
+          author: {
+            icon_url: avatarURL
+          },
+          title: "Character Creation",
+          description: "Welcome to Lost Paradise!",
+          fields: [{
+              name: "⚠️ Confirmation Requested ⚠️",
+              value: "If you have an existing character it will be destroyed. Are you sure?"
             },
-            title: "Character Creation",
-            description: "Welcome to Lost Paradise!",
-            fields: [{
-                name: "⚠️ Confirmation Requested ⚠️",
-                value: "If you have an existing character it will be destroyed. Are you sure?"
-              }
-            ]
-          }}
-    },
-    askCharacterType(){
-        return {embed: {
-            color: 3447003,
-            title: "Select Character Type",
-            description: "Character Type flavor text",
-            fields: [{
-                name: `${lp_physical} - Physical`,
-                value: "Physical Flavor Text"
-              },
-              {
-                name: `${lp_magical} - Magical`,
-                value: "Magic Flavor Text"
-              }
-            ]
-          }}
+            {
+              name: `💪 - Warbringer`,
+              value: 'Strength: sustained physical damage against its foes.'
+            },
+            {
+              name: `🏃 - Assassin`,
+              value: 'Dexterity: physical damage focusing crits.'
+            },
+            {
+              name: `🤢 - Paladin`,
+              value: 'Constitution: Higher health pool and ability to mend others.'
+            },
+            {
+              name: `🤔 - Spellweaver`,
+              value: `Intellect: Magic based damage and healing`
+            },
+            {
+              name: `✨ - Wizard`,
+              value: `Wisdom: Magic based damage`
+            },
+            {
+              name: `🎼 - Bard`,
+              value: `Charisma: Plays Freebird`
+            }
+          ],
+          footer: {
+            text: `If no response, try running !start once more and quickly selecting class.`
+          },
+          
+        }}
     }
 }
