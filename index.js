@@ -2,6 +2,7 @@ const { Client, Collection} = require("discord.js")
 const { config } = require("dotenv")
 const { readdirSync } = require('fs')
 const AccountManager = require('./js/managers/AccountManager')
+const RichardCole = require('./js/managers/RichardCole')
 
 const client = new Client({
     disableEveryone: true
@@ -34,6 +35,10 @@ client.on("ready", () => {
             type: "WATCHING"
         }
     })
+
+    // Road Event Interval
+    const roadManager = new RichardCole(client)
+    setInterval(() => roadManager.playGig(), 10000)
 });
 
 // Create an event listener for messages
